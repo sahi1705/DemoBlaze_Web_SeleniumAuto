@@ -1,0 +1,351 @@
+{
+	"info": {
+		"_postman_id": "b88ed5f3-b618-4cb6-817c-e92efc7a1ea1",
+		"name": "Demoblaze APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47005545",
+		"_collection_link": "https://flight-administrator-63788399-3941893.postman.co/workspace/b9444bd7-4c6a-43c3-829c-e5e1d51a85b4/collection/47005545-b88ed5f3-b618-4cb6-817c-e92efc7a1ea1?action=share&source=collection_link&creator=47005545"
+	},
+	"item": [
+		{
+			"name": "Signup",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response is not empty\", function () {\r",
+							"    pm.expect(pm.response.text()).to.not.be.empty;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains expected message\", function () {\r",
+							"    var res = pm.response.text();\r",
+							"    pm.expect(res).to.satisfy(msg => \r",
+							"        msg.includes(\"Sign up successful.\") || msg.includes(\"This user already exist.\")\r",
+							"    );\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"admin123\",\r\n  \"password\": \"Admin@123\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/signup",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response is not empty\", function () {\r",
+							"    pm.expect(pm.response.text()).to.not.be.empty;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains expected message\", function () {\r",
+							"    var res = pm.response.text();\r",
+							"    pm.expect(res).to.satisfy(msg => \r",
+							"        msg.includes(\"Login successful.\") || msg.includes(\"Wrong password.\")\r",
+							"    );\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"testuser123\",\r\n  \"password\": \"Test@123\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/login",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ad to cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// ✅ Status code should be 200 (or update if API returns another expected code)\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// ✅ Response should be valid JSON\r",
+							"pm.test(\"Response is valid JSON\", function () {\r",
+							"    pm.response.to.be.withBody;\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"// ✅ Response should have errorMessage property\r",
+							"pm.test(\"Response has errorMessage property\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"errorMessage\");\r",
+							"});\r",
+							"\r",
+							"// ✅ Error message should match the expected text\r",
+							"pm.test(\"Error message is 'Bad parameter, token malformed.'\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.errorMessage).to.equal(\"Bad parameter, token malformed.\");\r",
+							"});\r",
+							"\r",
+							"// ✅ Error message should not be empty\r",
+							"pm.test(\"Error message is not empty\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.errorMessage).to.not.be.empty;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"abcd1234\",\r\n  \"cookie\": \"token1234\",\r\n  \"prod_id\": 1,\r\n  \"flag\": true\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/addtocart",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"addtocart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// ✅ Status code check\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// ✅ Response should be valid JSON\r",
+							"pm.test(\"Response is valid JSON\", function () {\r",
+							"    pm.response.to.be.withBody;\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"// ✅ Response should contain errorMessage\r",
+							"pm.test(\"Response contains errorMessage property\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"errorMessage\");\r",
+							"});\r",
+							"\r",
+							"// ✅ Error message matches expected\r",
+							"pm.test(\"Error message is 'Bad parameter, token malformed.'\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.errorMessage).to.equal(\"Bad parameter, token malformed.\");\r",
+							"});\r",
+							"\r",
+							"// ✅ Error message is not empty\r",
+							"pm.test(\"Error message is not empty\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.errorMessage).to.not.be.empty;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n  \"cookie\": \"testcookie\",\r\n  \"flag\": true\r\n}\r\n\r\n"
+				},
+				"url": {
+					"raw": "https://api.demoblaze.com/viewcart",
+					"protocol": "https",
+					"host": [
+						"api",
+						"demoblaze",
+						"com"
+					],
+					"path": [
+						"viewcart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// ✅ Status code check\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// ✅ Response should not be empty\r",
+							"pm.test(\"Response body is not empty\", function () {\r",
+							"    pm.expect(pm.response.text()).to.not.be.empty;\r",
+							"});\r",
+							"\r",
+							"// ✅ Response contains 'Item deleted.'\r",
+							"pm.test(\"Response contains 'Item deleted.'\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Item deleted.\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response exactly matches '\\\"Item deleted.\\\"'\", function () {\r",
+							"    pm.expect(pm.response.text().trim()).to.equal('\"Item deleted.\"');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// ✅ Response type is string\r",
+							"pm.test(\"Response is a string message\", function () {\r",
+							"    pm.expect(pm.response.text()).to.be.a(\"string\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"12345-67890-abcdef\", \r\n  \"cookie\": \"testuser\"\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.demoblaze.com/deletecart",
+					"protocol": "https",
+					"host": [
+						"api",
+						"demoblaze",
+						"com"
+					],
+					"path": [
+						"deletecart"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "https://api.demoblaze.com",
+			"type": "default"
+		}
+	]
+}
