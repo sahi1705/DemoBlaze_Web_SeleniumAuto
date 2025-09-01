@@ -43,21 +43,51 @@ This project is a **Hybrid Automation Framework** that includes:
 
 ---
 
-## 📂 Project Structure  
-
+### 📂 Project Structure  
+```bash
 Demoblaze-Automation/
-│── src/main/java/pages/ # Page Object classes (CartPage, LoginPage, etc.)
-│── src/main/java/tests/ # Test classes (AddToCartTest, CheckoutTest, etc.)
-│── src/main/java/utilities/ # Utility classes (DriverManager, Reports, Screenshot utils)
-│── src/test/java/features/ # (If extended with Cucumber BDD features)
-│── src/test/resources/ # Config files, test data
-│── Postman_API_Tests/ # Postman collection for API testing
-│ └── Demoblaze APIs.postman_collection.json
-│── reports/ # Extent Reports generated after test runs
-│── pom.xml # Maven dependencies
-│── testng.xml # TestNG test suite
-│── README.md # Project documentation
+├── pom.xml
+├── testng.xml
+├── reports/                      
+│   └── ExtentReport.html
+│
+├── src/
+│   ├── main/
+│   │   └── java/
+│   │       ├── pages/
+│   │       │   ├── CartPage.java
+│   │       │   ├── CheckoutPage.java
+│   │       │   ├── HomePage.java
+│   │       │   ├── LoginPage.java
+│   │       │   └── SignUpPage.java
+│   │       │
+│   │       ├── tests/
+│   │       │   ├── AddToCartTest.java
+│   │       │   ├── BaseTest.java
+│   │       │   ├── CheckoutTest.java
+│   │       │   ├── LoginTest.java
+│   │       │   └── SignUpTest.java
+│   │       │
+│   │       └── utilities/
+│   │           ├── DriverManager.java
+│   │           ├── ExtentLogger.java
+│   │           ├── ExtentTestManager.java
+│   │           ├── ScreenshotUtil.java
+│   │           └── TestListener.java
+│   │
+│   └── test/
+│       └── java/                  # (reserved for Cucumber BDD stepdefs/features if added)
+│
+├── src/test/resources/            # Config files, test data
+│
+├── Postman_API_Tests/             # API testing with Postman
+│   └── Demoblaze APIs.postman_collection.json
+│
+├── test-output/                   # TestNG reports auto-generated
+│
+└── README.md                      # Project documentation
 
+```
 ---
 
 ## 🛠️ Technology Stack  
@@ -73,17 +103,16 @@ Demoblaze-Automation/
 
 ---
 
-📊 Test Reports
+## 📊 Test Reports
 
 -📑 Extent Reports – Interactive and detailed execution reports with screenshots
--✅ API Reports – Available in Postman / Newman runner output
--🚀 Future Enhancements
+-✅ API Reports – Available in Postman 
 
 
-🎯 Conclusion
+## 🎯 Conclusion
 
-The Demoblaze Automation Testing Project ensures end-to-end testing of an e-commerce workflow.
-By combining Selenium (UI automation) with Postman (API testing), the framework validates both frontend and backend layers.
+- The Demoblaze Automation Testing Project ensures end-to-end testing of an e-commerce workflow.
+- By combining Selenium (UI automation) with Postman (API testing), the framework validates both frontend and backend layers.
 
 This project demonstrates strong SDET skills in UI + API automation, framework design, and reporting. ✅🚀
 
